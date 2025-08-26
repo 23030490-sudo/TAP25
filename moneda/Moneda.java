@@ -1,41 +1,28 @@
-package com.mycompany.moneda;
+package moneda;
 
 import java.util.Scanner;
 
 public class Moneda {
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
-        Cajero cajero = new Cajero();
-
-        System.out.println("Ingresa cantidades en euros (enteros positivos). Ingresa 0 para terminar.");
-
+        CajeroLimitado cajero1 = new CajeroLimitado();
+        //Pedimos los valores
+        System.out.println("Ingresa los euros a transformar");
+        System.out.println("Nota: Deben ser enteros positivos");
+        System.out.println("Ingresa 0 para terminar");
+        //Mientras sea verdad
         while (true) {
-            System.out.print("Cantidad en euros: ");
+            //Leer la cantidad
             int cantidad = leer.nextInt();
-            leer.nextLine(); // limpiar buffer
-
+            //Si la cantidad es igual a 0, terminar programa
             if (cantidad == 0) {
-                System.out.println("Programa finalizado.");
                 break;
             }
-
-            cajero.setCantidad(cantidad);
-            System.out.println("DESGLOSE EN EUROS");
-            cajero.mostrarCambioEuros();
-
-            System.out.print("Deseas convertir a pesos mexicanos? (s/n): ");
-            String respuesta = leer.nextLine().trim().toLowerCase();
-
-            if (respuesta.equals("s") || respuesta.equals("sí")) {
-                System.out.println("DESGLOSE EN PESOS MEXICANOS:");
-                cajero.mostrarCambioPesos();
-            } else {
-                System.out.println("Conversion omitida.");
-            }
-
-            System.out.println("-----------------------------");
+            //Sino, llamar métodos de la clase CajeroLimitado
+            cajero1.setCantidad(cantidad);
+            cajero1.Cambio();            // calcular cambio
+            cajero1.mostrarInventario(); // mostrar inventario
+            System.out.println("----------");
         }
-
-        leer.close();
     }
 }
